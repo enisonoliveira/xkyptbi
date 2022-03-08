@@ -1,16 +1,35 @@
 {
   "name": "xkyptbi",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "npm run build && node build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon",
+    "build": "rimraf ./build && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.21",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.7.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.9.10"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
-  }
+    "express": "^4.17.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enisonoliveira/xkyptbi.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/enisonoliveira/xkyptbi/issues"
+  },
+  "homepage": "https://github.com/enisonoliveira/xkyptbi#readme"
 }
