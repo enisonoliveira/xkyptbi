@@ -6,7 +6,7 @@ router.post('/book/save', function(req, res) {
 });
 
 router.put('/book/save', function(req, res) {
-    res.send(`incluir livro`);
+    res.send(`editar livro`);
 });
  
 router.delete('/book/delete', function(req, res) {
