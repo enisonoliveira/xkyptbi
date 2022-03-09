@@ -5,15 +5,7 @@ class BookController{
     public path = '/books';
     public router = express.Router();
 
-    private book: BookInterface[] = [
-        {
-            name: "",
-            description: "",
-            autor: "",
-            SBN: "",
-            quantityInStock:0,
-        }
-      ];
+    private book: BookInterface[] = [];
 
     constructor() {
         this.intializeRoutes();

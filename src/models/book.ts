@@ -1,4 +1,4 @@
-import { Document, Schema, model} from "mongoose";
+import mongoose, { Document, Schema, model} from "mongoose";
 import { BookInterface } from "../interfaces/BookInterface";
 
 export const bookSchema:Schema = new Schema({
@@ -11,5 +11,4 @@ export const bookSchema:Schema = new Schema({
 );
 
 
- 
-export default model<BookInterface>("BookSchema", bookSchema);
+export default mongoose.model<BookInterface>('BookSchema', bookSchema);

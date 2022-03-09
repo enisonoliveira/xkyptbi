@@ -1,6 +1,6 @@
 FROM node:11-alpine
 
-WORKDIR /node-app
+WORKDIR /XKYPTBI
 
 COPY package.json .
 
@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD nodemon -L --watch . index.js
+CMD nodemon -L --watch . app.js

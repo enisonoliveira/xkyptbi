@@ -4,8 +4,8 @@ services:
     container_name: NODEJS_SERVER_MEDIUM
     build: '.'
     volumes:
-      - ./:/node-app
-      - ./node_modules:/node-app/node_modules
+      - ./:/build
+      - ./node_modules:/XKYPTBI/node_modules
     environment:
       NODE_ENV: development
     depends_on:
