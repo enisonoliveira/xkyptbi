@@ -1,32 +1,59 @@
-import{bookSchema } from '../models/book';
+import * as express from 'express';
+import { BookInterface } from '../interfaces/BookInterface';
 
+class BookController{
+    public path = '/books';
+    public router = express.Router();
 
+    private book: BookInterface[] = [
+        {
+            name: "",
+            description: "",
+            autor: "",
+            SBN: "",
+            quantityInStock:0,
+        }
+      ];
 
-// Display list of all books.
-exports.book_list = function(req:Request, res:Response) { 
-    res.send('NOT IMPLEMENTED: Book list');
-};
+    constructor() {
+        this.intializeRoutes();
+      }
 
-// Display detail page for a specific book.
-exports.book_detail = function(req:Request, res:Response) {
-    const PARAM_ID: string = "id";
-    if (typeof req.params[PARAM_ID] === "undefined" || req.params[PARAM_ID] === null) {
-      res.sendStatus(404);
-      next();
-      return;
-};
+      public intializeRoutes() {
+        this.router.get('/book/delete', this.getAllBooks);
+        this.router.get('/books/listOne/', this.detailBook);
+        this.router.post('/book/save', this.createBook);
+        this.router.put('/book/save', this.updateBook);
+        this.router.delete('/book/delete', this.deleteBook);
+      }
 
-// Handle book create on POST.
-exports.book_create_post = function(req:Request, res:Response) { 
-    res.send('NOT IMPLEMENTED: Book create POST');
-};
+      getAllBooks = (request: express.Request, response: express.Response) => {
+        response.send(this.book);
+      }
+     
+      createBook = (request: express.Request, response: express.Response) => {
+        const book: BookInterface = request.body;
+        this.book.push(book);
+        response.send(book);
+      }
 
-// Handle book delete on POST.
-exports.book_delete_post =function(req:Request, res:Response) { 
-    res.send('NOT IMPLEMENTED: Book delete POST');
-};
+      updateBook = (request: express.Request, response: express.Response) => {
+        const book: BookInterface = request.body;
+        this.book.push(book);
+        response.send(book);
+      }
 
-// Handle book update on PUT.
-exports.book_update_post = function(req:Request, res:Response) { 
-    res.send('NOT IMPLEMENTED: Book update POST');
-};
+      deleteBook = (request: express.Request, response: express.Response) => {
+        const book: BookInterface = request.body;
+        this.book.push(book);
+        response.send(book);
+      }
+
+      detailBook = (request: express.Request, response: express.Response) => {
+        const book: BookInterface = request.body;
+        this.book.push(book);
+        response.send(book);
+      }
+}
+
+export default BookController;

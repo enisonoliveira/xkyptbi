@@ -1,5 +1,7 @@
 export interface BookInterface {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
+  name?: String;
+  description?: String;
+  autor?: String;
+  SBN?: String;
+  quantityInStock?:Number;
   }
