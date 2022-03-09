@@ -7,6 +7,7 @@ var express_1 = __importDefault(require("express"));
 var App = /** @class */ (function () {
     function App(controllers, port) {
         this.app = express_1.default();
+        console.log(controllers);
         this.port = port;
         this.initializeControllers(controllers);
     }

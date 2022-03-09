@@ -21,11 +21,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bookSchema = void 0;
 var mongoose_1 = __importStar(require("mongoose"));
+mongoose_1.default.connect('mongodb://localhost:27017/web', { useUnifiedTopology: true });
 exports.bookSchema = new mongoose_1.Schema({
     name: String,
     description: String,
     autor: String,
     SBN: String,
-    quantityInStock: Number,
+    quantityInStock: Number
 }, { collection: 'books' });
-exports.default = mongoose_1.default.model('BookSchema', exports.bookSchema);
+exports.default = { Mongoose: mongoose_1.default, BookSchema: exports.bookSchema };

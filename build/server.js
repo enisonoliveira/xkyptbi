@@ -5,7 +5,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var BookController_1 = __importDefault(require("./controller/BookController"));
 var app_1 = __importDefault(require("./routes/app"));
-var app = new app_1.default([
-    new BookController_1.default(),
-], 5000);
+var app = new app_1.default([new BookController_1.default()], 5000);
 app.listen();

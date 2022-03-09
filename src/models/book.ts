@@ -1,14 +1,17 @@
 import mongoose, { Document, Schema, model} from "mongoose";
 import { BookInterface } from "../interfaces/BookInterface";
 
-export const bookSchema:Schema = new Schema({
+
+mongoose.connect('mongodb://localhost:27017/web', { useUnifiedTopology: true });
+
+export const bookSchema= new Schema({
     name: String,
     description: String,
     autor: String,
     SBN: String,
-    quantityInStock:Number,
+    quantityInStock:Number
 }, { collection: 'books' }
 );
 
 
-export default mongoose.model<BookInterface>('BookSchema', bookSchema);
+export default  { Mongoose: mongoose, BookSchema: bookSchema }
