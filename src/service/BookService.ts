@@ -1,12 +1,11 @@
 import * as express from 'express';
 import { BookInterface } from '../interfaces/BookInterface';
-import mongoose from '../models/book'
+import mongoose from '../models/BookDocument'
 
-class BookController {
+export default class BookService {
+
     public path = '/books';
     public router = express.Router();
-
-    private book: BookInterface[] = [];
 
     index = async () => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
@@ -15,7 +14,7 @@ class BookController {
             description: "test book",
             autor: "test",
             SBN: "123",
-            quantityInStock: 0
+            quantityInStock: 10
         });
 
         try {
@@ -35,6 +34,8 @@ class BookController {
 
     createBook = async (body:BookInterface) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
+        console.log(body)
+
         const book = new Book({
             name: body.name,
             description:body.description,
@@ -82,4 +83,3 @@ class BookController {
     }
 }
 
-export default BookController;

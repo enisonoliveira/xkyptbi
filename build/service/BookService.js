@@ -59,25 +59,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __importStar(require("express"));
-var book_1 = __importDefault(require("../models/book"));
-var BookController = /** @class */ (function () {
-    function BookController() {
+var BookDocument_1 = __importDefault(require("../models/BookDocument"));
+var BookService = /** @class */ (function () {
+    function BookService() {
         var _this = this;
         this.path = '/books';
         this.router = express.Router();
-        this.book = [];
         this.index = function () { return __awaiter(_this, void 0, void 0, function () {
             var Book, book, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         book = new Book({
                             name: "insert book",
                             description: "test book",
                             autor: "test",
                             SBN: "123",
-                            quantityInStock: 0
+                            quantityInStock: 10
                         });
                         _a.label = 1;
                     case 1:
@@ -98,7 +97,7 @@ var BookController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         return [4 /*yield*/, Book.find({}).lean().exec()];
                     case 1:
                         docs = _a.sent();
@@ -111,7 +110,8 @@ var BookController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        console.log(body);
                         book = new Book({
                             name: body.name,
                             description: body.description,
@@ -138,7 +138,7 @@ var BookController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         book = new Book({
                             name: body.name,
                             description: body.description,
@@ -164,7 +164,7 @@ var BookController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -184,7 +184,7 @@ var BookController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         return [4 /*yield*/, Book.find({ 'SBN': SBN }).lean().exec()];
                     case 1:
                         docs = _a.sent();
@@ -193,6 +193,6 @@ var BookController = /** @class */ (function () {
             });
         }); };
     }
-    return BookController;
+    return BookService;
 }());
-exports.default = BookController;
+exports.default = BookService;

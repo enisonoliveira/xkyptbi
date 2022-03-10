@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 
-import { resolvers, typeDefs } from './resolvers/BookResolvers';
+import { resolvers, typeDefs } from './controllers/BookController';
 const server = new ApolloServer({
   typeDefs,
   resolvers,
