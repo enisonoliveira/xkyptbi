@@ -8,20 +8,7 @@ class BookController {
 
     private book: BookInterface[] = [];
 
-    constructor() {
-        this.intializeRoutes();
-    }
-
-    public intializeRoutes() {
-        this.router.get('/books', this.getAllBooks);
-        this.router.get('/books/listOne/', this.detailBook);
-        this.router.post('/book/save', this.createBook);
-        this.router.put('/book/save', this.updateBook);
-        this.router.delete('/book/delete', this.deleteBook);
-        this.router.get('/', this.index);
-    }
-
-    index = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    index = async () => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         const book = new Book({
             name: "insert book",
@@ -35,67 +22,63 @@ class BookController {
 
             await book.save();
         } catch (err) {
-            next(err);
         }
-        response.send("book api");
+        return book;
 
     }
 
-    getAllBooks = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+     getAllBooks= async  () => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         const docs = await Book.find({}).lean().exec();
-        response.send(docs);
+        return docs;
     }
 
-    createBook = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    createBook = async (body:BookInterface) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         const book = new Book({
-            name: request.body.name,
-            description: request.body.description,
-            author: request.body.author,
-            SBN: request.body.SBN,
-            quantityInStock: request.body.quantityInStock,
+            name: body.name,
+            description:body.description,
+            author: body.author,
+            SBN: body.SBN,
+            quantityInStock: body.quantityInStock,
         });
         try {
 
             await book.save();
         } catch (err) {
-            next(err);
         }
-        response.send(book);
+        return book;
     }
 
-    updateBook = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    updateBook = async (body:BookInterface) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         const book = new Book({
-            name: request.body.name,
-            description: request.body.description,
-            author: request.body.author,
-            quantityInStock: request.body.quantityInStock,
+            name: body.name,
+            description: body.description,
+            author: body.author,
+            quantityInStock: body.quantityInStock,
         });
         try {
 
             await book.update();
         } catch (err) {
-            next(err);
         }
-        response.send(book);
+        return book;
     }
 
-    deleteBook = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    deleteBook = async (SBN:string) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         try {
-            const doc = await Book.find({'SBN':request.body.SBN}).remove().exec();
+            const doc = await Book.find({'SBN':SBN}).remove().exec();
         } catch (err) {
-            next(err);
         }
-        response.send("deleted!");
+       return "deleted!";
     }
 
-    detailBook = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    detailBook = async (SBN:any) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
-        const docs = await Book.find({'SBN':request.body.SBN}).lean().exec();
-        response.send(docs);
+        const docs = await Book.find({'SBN':SBN}).lean().exec();
+        return docs
     }
 }
 

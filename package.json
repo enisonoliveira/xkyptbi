@@ -24,7 +24,9 @@
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",
     "express": "^4.17.3",
-    "mongoose": "^5.11.15"
+    "mongoose": "^5.11.15",
+    "graphql": "^15.3.0",
+    "apollo-server": "3.6.3"
   },
   "repository": {
     "type": "git",

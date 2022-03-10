@@ -1,9 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var BookController_1 = __importDefault(require("./controller/BookController"));
-var app_1 = __importDefault(require("./routes/app"));
-var app = new app_1.default([new BookController_1.default()], 5000);
-app.listen();
+var apollo_server_1 = require("apollo-server");
+var BookResolvers_1 = require("./resolvers/BookResolvers");
+var server = new apollo_server_1.ApolloServer({
+    typeDefs: BookResolvers_1.typeDefs,
+    resolvers: BookResolvers_1.resolvers,
+});
+server.listen().then(function (_a) {
+    var url = _a.url;
+    console.log("\uD83D\uDE80 Server ready at " + url);
+});

@@ -1,7 +1,8 @@
 import  express from 'express';
 import * as bodyParser from 'body-parser';
 import BookController from '../controller/BookController';
- 
+
+
 class App {
   public app: express.Application;
   public port: number;

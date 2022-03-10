@@ -66,7 +66,7 @@ var BookController = /** @class */ (function () {
         this.path = '/books';
         this.router = express.Router();
         this.book = [];
-        this.index = function (request, response, next) { return __awaiter(_this, void 0, void 0, function () {
+        this.index = function () { return __awaiter(_this, void 0, void 0, function () {
             var Book, book, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -88,15 +88,12 @@ var BookController = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
-                        next(err_1);
                         return [3 /*break*/, 4];
-                    case 4:
-                        response.send("book api");
-                        return [2 /*return*/];
+                    case 4: return [2 /*return*/, book];
                 }
             });
         }); };
-        this.getAllBooks = function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+        this.getAllBooks = function () { return __awaiter(_this, void 0, void 0, function () {
             var Book, docs;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -105,41 +102,97 @@ var BookController = /** @class */ (function () {
                         return [4 /*yield*/, Book.find({}).lean().exec()];
                     case 1:
                         docs = _a.sent();
-                        response.send(docs);
-                        return [2 /*return*/];
+                        return [2 /*return*/, docs];
                 }
             });
         }); };
-        this.createBook = function (request, response) {
-            var book = request.body;
-            _this.book.push(book);
-            response.send(book);
-        };
-        this.updateBook = function (request, response) {
-            var book = request.body;
-            _this.book.push(book);
-            response.send(book);
-        };
-        this.deleteBook = function (request, response) {
-            var book = request.body;
-            _this.book.push(book);
-            response.send(book);
-        };
-        this.detailBook = function (request, response) {
-            var book = request.body;
-            _this.book.push(book);
-            response.send(book);
-        };
-        this.intializeRoutes();
+        this.createBook = function (body) { return __awaiter(_this, void 0, void 0, function () {
+            var Book, book, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        book = new Book({
+                            name: body.name,
+                            description: body.description,
+                            author: body.author,
+                            SBN: body.SBN,
+                            quantityInStock: body.quantityInStock,
+                        });
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, book.save()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_2 = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/, book];
+                }
+            });
+        }); };
+        this.updateBook = function (body) { return __awaiter(_this, void 0, void 0, function () {
+            var Book, book, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        book = new Book({
+                            name: body.name,
+                            description: body.description,
+                            author: body.author,
+                            quantityInStock: body.quantityInStock,
+                        });
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, book.update()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_3 = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/, book];
+                }
+            });
+        }); };
+        this.deleteBook = function (SBN) { return __awaiter(_this, void 0, void 0, function () {
+            var Book, doc, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, Book.find({ 'SBN': SBN }).remove().exec()];
+                    case 2:
+                        doc = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_4 = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/, "deleted!"];
+                }
+            });
+        }); };
+        this.detailBook = function (SBN) { return __awaiter(_this, void 0, void 0, function () {
+            var Book, docs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Book = book_1.default.Mongoose.model('book', book_1.default.BookSchema, 'book');
+                        return [4 /*yield*/, Book.find({ 'SBN': SBN }).lean().exec()];
+                    case 1:
+                        docs = _a.sent();
+                        return [2 /*return*/, docs];
+                }
+            });
+        }); };
     }
-    BookController.prototype.intializeRoutes = function () {
-        this.router.get('/books', this.getAllBooks);
-        this.router.get('/books/listOne/', this.detailBook);
-        this.router.post('/book/save', this.createBook);
-        this.router.put('/book/save', this.updateBook);
-        this.router.delete('/book/delete', this.deleteBook);
-        this.router.get('/', this.index);
-    };
     return BookController;
 }());
 exports.default = BookController;
