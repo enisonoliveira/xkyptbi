@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var apollo_server_1 = require("apollo-server");
-var BookController_1 = require("./controllers/BookController");
+var BookController_1 = require("./src/controllers/BookController");
 var server = new apollo_server_1.ApolloServer({
     typeDefs: BookController_1.typeDefs,
     resolvers: BookController_1.resolvers,

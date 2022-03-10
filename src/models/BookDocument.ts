@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, model} from "mongoose";
 import { BookInterface } from "../interfaces/BookInterface";
 
 
-mongoose.connect('mongodb://localhost:27017/web', { useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/web', { useNewUrlParser: true,useFindAndModify:true });
 
 export const bookSchema= new Schema({
     name: String,

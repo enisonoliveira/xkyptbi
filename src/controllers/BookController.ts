@@ -12,21 +12,22 @@ input BookInput {
       quantityInStock:Float
     }
 
+
     type BookInterface {
+        _id:ID
         author: String
         name: String
         description:String
         SBN:String
         quantityInStock:Float
       }
-  
     type Query {
-      book: BookInterface
+      book(SBN:String): [BookInterface]
       books: [BookInterface]
     }
     type Mutation {
         createBook(book:BookInput): BookInterface
-        updateBook( book:BookInput ): BookInterface
+        updateBook( book:BookInput ): [BookInterface]
         deleteBook( SBN :String): String
     }
   `;
@@ -37,25 +38,26 @@ export const resolvers = {
             const book = new BookService();
             return book.getAllBooks();
         },
-        book(_: any, { SBN }: any) {
+        book(_: any, { SBN }: any):any {
             const book = new BookService();
+            console.log(SBN);
             return book.detailBook(SBN);
         },
     },
     Mutation: {
-        createBook(_: any, bookObject:any) {
-            const bookConvert=JSON.parse(JSON.stringify(bookObject));
-            const  book=bookConvert.book
+        createBook(_: any, bookObject: any) {
+            const bookConvert = JSON.parse(JSON.stringify(bookObject));
+            const book = bookConvert.book
             const service = new BookService();
-            let newBook: BookInterface = { author:book.author, name: book.name, description:book.description, SBN: book.SBN, quantityInStock:book.quantityInStock };
+            let newBook: BookInterface = { author: book.author, name: book.name, description: book.description, SBN: book.SBN, quantityInStock: book.quantityInStock };
             return service.createBook(newBook);
         },
         updateBook(_: any, bookObject: any) {
-            const bookConvert=JSON.parse(JSON.stringify(bookObject));
-            const  book=bookConvert.book
+            const bookConvert = JSON.parse(JSON.stringify(bookObject));
+            const book = bookConvert.book
             const service = new BookService();
-            let updateBook: BookInterface =  { author:book.author, name: book.name, description:book.description, SBN: book.SBN, quantityInStock:book.quantityInStock };
-            return service.updateBook(updateBook);
+            let updateBook: BookInterface = { author: book.author, name: book.name, description: book.description, quantityInStock: book.quantityInStock };
+            return service.updateBook(updateBook, book.SBN);
         },
         deleteBook(_: any, { SBN }: any) {
             const service = new BookService();

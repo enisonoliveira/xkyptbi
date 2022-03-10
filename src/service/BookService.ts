@@ -18,9 +18,9 @@ export default class BookService {
         });
 
         try {
-
             await book.save();
         } catch (err) {
+        }finally{
         }
         return book;
 
@@ -35,7 +35,6 @@ export default class BookService {
     createBook = async (body:BookInterface) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
         console.log(body)
-
         const book = new Book({
             name: body.name,
             description:body.description,
@@ -51,20 +50,16 @@ export default class BookService {
         return book;
     }
 
-    updateBook = async (body:BookInterface) => {
+    updateBook = async (body:BookInterface,SBN:string) => {
         const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
-        const book = new Book({
-            name: body.name,
-            description: body.description,
-            author: body.author,
-            quantityInStock: body.quantityInStock,
-        });
+        const filter = { 'SBN': SBN };
         try {
+            await Book.findOneAndUpdate(filter,body);
+            const docs = await Book.find({'SBN':SBN}).lean().exec();
 
-            await book.update();
+            return docs;
         } catch (err) {
         }
-        return book;
     }
 
     deleteBook = async (SBN:string) => {
@@ -76,10 +71,13 @@ export default class BookService {
        return "deleted!";
     }
 
-    detailBook = async (SBN:any) => {
-        const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
-        const docs = await Book.find({'SBN':SBN}).lean().exec();
-        return docs
+       detailBook =async (SBN:any) => {
+           try{
+                const Book = mongoose.Mongoose.model('book', mongoose.BookSchema, 'book');
+                const docs = await Book.find({'SBN':SBN}).lean().exec();
+                return docs
+            } catch (err) {
+            }
     }
 }
 
