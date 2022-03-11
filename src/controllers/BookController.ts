@@ -45,7 +45,6 @@ export const resolvers = {
         },
         book(_: any, { SBN }: any):any {
             const book = new BookService();
-            console.log(SBN);
             return book.detailBook(SBN);
         },
     },
