@@ -10,12 +10,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.resolvers = exports.typeDefs = void 0;
 var BookService_1 = __importDefault(require("../service/BookService"));
 var apollo_server_1 = require("apollo-server");
-exports.typeDefs = apollo_server_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\ninput BookInput {\n      author: String\n      name: String\n      description:String\n      SBN:String\n      quantityInStock:Float\n    }\n\n\n    type BookInterface {\n        _id:ID\n        author: String\n        name: String\n        description:String\n        SBN:String\n        quantityInStock:Float\n      }\n    type Query {\n      book(SBN:String): [BookInterface]\n      books: [BookInterface]\n    }\n    type Mutation {\n        createBook(book:BookInput): BookInterface\n        updateBook( book:BookInput ): [BookInterface]\n        deleteBook( SBN :String): String\n    }\n  "], ["\ninput BookInput {\n      author: String\n      name: String\n      description:String\n      SBN:String\n      quantityInStock:Float\n    }\n\n\n    type BookInterface {\n        _id:ID\n        author: String\n        name: String\n        description:String\n        SBN:String\n        quantityInStock:Float\n      }\n    type Query {\n      book(SBN:String): [BookInterface]\n      books: [BookInterface]\n    }\n    type Mutation {\n        createBook(book:BookInput): BookInterface\n        updateBook( book:BookInput ): [BookInterface]\n        deleteBook( SBN :String): String\n    }\n  "])));
+exports.typeDefs = apollo_server_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\ninput BookInput {\n      author: String\n      name: String\n      description:String\n      SBN:String\n      quantityInStock:Float\n    }\n\n    type BookInterface {\n        _id:ID\n        author: String\n        name: String\n        description:String\n        SBN:String\n        quantityInStock:Float\n    }\n\n\n    type BookInterface2 {\n        name: String\n    }\n\n    type Query {\n      book(SBN:String): [BookInterface]\n      books(page:Int): [BookInterface2]\n    }\n    type Mutation {\n        createBook(book:BookInput): BookInterface\n        updateBook( book:BookInput ): [BookInterface]\n        deleteBook( SBN :String): String\n    }\n  "], ["\ninput BookInput {\n      author: String\n      name: String\n      description:String\n      SBN:String\n      quantityInStock:Float\n    }\n\n    type BookInterface {\n        _id:ID\n        author: String\n        name: String\n        description:String\n        SBN:String\n        quantityInStock:Float\n    }\n\n\n    type BookInterface2 {\n        name: String\n    }\n\n    type Query {\n      book(SBN:String): [BookInterface]\n      books(page:Int): [BookInterface2]\n    }\n    type Mutation {\n        createBook(book:BookInput): BookInterface\n        updateBook( book:BookInput ): [BookInterface]\n        deleteBook( SBN :String): String\n    }\n  "])));
 exports.resolvers = {
     Query: {
-        books: function () {
+        books: function (_, _a) {
+            var page = _a.page;
             var book = new BookService_1.default();
-            return book.getAllBooks();
+            return book.getAllBooks(page);
         },
         book: function (_, _a) {
             var SBN = _a.SBN;

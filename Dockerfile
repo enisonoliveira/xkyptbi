@@ -1,15 +1,23 @@
-FROM node:11-alpine
+FROM node:12-alpine
 
-WORKDIR /XKYPTBI
+# update packages
+RUN apk update
 
-COPY package.json .
+# create root application folder
+WORKDIR /app
 
-RUN npm install --quiet
+# copy configs to /app folder
+COPY package*.json ./
+COPY tsconfig.json ./
+# copy source code to /app/src folder
+COPY . .
 
-RUN npm install nodemon -g --quiet
+# check files list
+RUN ls -a
 
-COPY . . 
+RUN npm install
+RUN npm run build
 
-EXPOSE 9000
+EXPOSE 4000
 
-CMD nodemon -L --watch . app.js
+CMD [ "node", "./build/server.js" ]

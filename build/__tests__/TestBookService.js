@@ -41,21 +41,78 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var BookService_1 = __importDefault(require("../src/service/BookService"));
 var bookService = new BookService_1.default();
-test('validar insert Book', function () { return __awaiter(void 0, void 0, void 0, function () {
+var multipleSBN = new Date().getTime().toString();
+test('validate insert Book!', function () { return __awaiter(void 0, void 0, void 0, function () {
     var newBook;
     return __generator(this, function (_a) {
-        jest.useFakeTimers();
-        newBook = { author: "Jão", name: "Coletanea do Jão", description: "As aventuras do jão", SBN: "1233", quantityInStock: 10.0 };
+        newBook = { author: "Jão", name: "Coletanea do Pedro", description: "As aventuras do Pedro", SBN: multipleSBN, quantityInStock: 10.0 };
         expect(bookService.createBook(newBook)).toBeTruthy();
         return [2 /*return*/];
     });
 }); });
-test('validar update Book', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var newBook;
+test('equals!', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var newBook, resp;
     return __generator(this, function (_a) {
-        jest.useFakeTimers();
-        newBook = { author: "João", name: " do João", description: "As aventuras do joão", quantityInStock: 10.0 };
-        expect(bookService.updateBook(newBook, '1233')).toBeTruthy();
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                newBook = { author: "Jão", name: "Coletanea do Jão", description: "As aventuras do jão", SBN: multipleSBN, quantityInStock: 10.0 };
+                return [4 /*yield*/, bookService.createBook(newBook)];
+            case 1:
+                resp = _a.sent();
+                expect(newBook.SBN).toBe(resp.SBN);
+                return [2 /*return*/];
+        }
+    });
+}); });
+test('update Book!', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var SBN, updateBook, newBook, resp, respUpdate;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                SBN = new Date().getTime().toString();
+                updateBook = { author: "João", name: " do João", description: "As aventuras do joão", quantityInStock: 10.0 };
+                newBook = { author: "Zé", name: "Coletanea do Zé", description: "As aventuras do Zé", SBN: SBN, quantityInStock: 10.0 };
+                return [4 /*yield*/, bookService.createBook(newBook)];
+            case 1:
+                resp = _a.sent();
+                return [4 /*yield*/, bookService.updateBook(updateBook, SBN)];
+            case 2:
+                respUpdate = _a.sent();
+                expect(respUpdate[0].SBN).toBe(SBN);
+                return [2 /*return*/];
+        }
+    });
+}); });
+test('detail Book!', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var SBN, newBook, resp, detail;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                SBN = new Date().getTime().toString();
+                newBook = { author: "Zé", name: "Coletanea do Zé", description: "As aventuras do Zé", SBN: SBN, quantityInStock: 10.0 };
+                return [4 /*yield*/, bookService.createBook(newBook)];
+            case 1:
+                resp = _a.sent();
+                return [4 /*yield*/, bookService.detailBook(SBN)];
+            case 2:
+                detail = _a.sent();
+                expect(detail[0].SBN).toBe(SBN);
+                return [2 /*return*/];
+        }
+    });
+}); });
+test('deletar Book!', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var SBN, newBook, resp;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                SBN = new Date().getTime().toString();
+                newBook = { author: "Zé", name: "Coletanea do Zé", description: "As aventuras do Zé", SBN: SBN, quantityInStock: 10.0 };
+                return [4 /*yield*/, bookService.deleteBook(SBN)];
+            case 1:
+                resp = _a.sent();
+                expect(resp).toBe("deleted!");
+                return [2 /*return*/];
+        }
     });
 }); });

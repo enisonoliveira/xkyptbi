@@ -59,47 +59,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __importStar(require("express"));
+var bd_1 = __importDefault(require("../db/bd"));
 var BookDocument_1 = __importDefault(require("../models/BookDocument"));
+var loglevel_1 = __importDefault(require("loglevel"));
 var BookService = /** @class */ (function () {
     function BookService() {
         var _this = this;
         this.path = '/books';
         this.router = express.Router();
         this.index = function () { return __awaiter(_this, void 0, void 0, function () {
-            var Book, book, err_1;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
-                        book = new Book({
-                            name: "insert book",
-                            description: "test book",
-                            autor: "test",
-                            SBN: "123",
-                            quantityInStock: 10
-                        });
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, 4, 5]);
-                        return [4 /*yield*/, book.save()];
-                    case 2:
-                        _a.sent();
-                        return [3 /*break*/, 5];
-                    case 3:
-                        err_1 = _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4: return [7 /*endfinally*/];
-                    case 5: return [2 /*return*/, book];
-                }
+                return [2 /*return*/, "Hola!"];
             });
         }); };
-        this.getAllBooks = function () { return __awaiter(_this, void 0, void 0, function () {
+        this.getAllBooks = function (page) { return __awaiter(_this, void 0, void 0, function () {
             var Book, docs;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
-                        return [4 /*yield*/, Book.find({}).lean().exec()];
+                        loglevel_1.default.info("function list all books");
+                        Book = bd_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        return [4 /*yield*/, Book.find({}).skip(page * 10).limit(10).select('name').lean().exec()];
                     case 1:
                         docs = _a.sent();
                         return [2 /*return*/, docs];
@@ -107,12 +87,19 @@ var BookService = /** @class */ (function () {
             });
         }); };
         this.createBook = function (body) { return __awaiter(_this, void 0, void 0, function () {
-            var Book, book, err_2;
+            var Book, docs, book, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
-                        console.log(body);
+                        loglevel_1.default.info("function  create book");
+                        Book = bd_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        return [4 /*yield*/, Book.find({ 'SBN': body.SBN }).lean().exec()];
+                    case 1:
+                        docs = _a.sent();
+                        if (docs.length > 0) {
+                            loglevel_1.default.error("Error because, SBN founded in your sytem, yeat!");
+                            return [2 /*return*/, new Error("Error because, SBN founded in your sytem, yeat!")];
+                        }
                         book = new Book({
                             name: body.name,
                             description: body.description,
@@ -120,26 +107,28 @@ var BookService = /** @class */ (function () {
                             SBN: body.SBN,
                             quantityInStock: body.quantityInStock,
                         });
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, book.save()];
+                        _a.label = 2;
                     case 2:
-                        _a.sent();
-                        return [3 /*break*/, 4];
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, book.save()];
                     case 3:
-                        err_2 = _a.sent();
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/, book];
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_1 = _a.sent();
+                        loglevel_1.default.error(err_1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/, book];
                 }
             });
         }); };
         this.updateBook = function (body, SBN) { return __awaiter(_this, void 0, void 0, function () {
-            var Book, filter, docs, err_3;
+            var Book, filter, docs, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        loglevel_1.default.info("function updateBook book:" + SBN);
+                        Book = bd_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         filter = { 'SBN': SBN };
                         _a.label = 1;
                     case 1:
@@ -152,18 +141,20 @@ var BookService = /** @class */ (function () {
                         docs = _a.sent();
                         return [2 /*return*/, docs];
                     case 4:
-                        err_3 = _a.sent();
+                        err_2 = _a.sent();
+                        loglevel_1.default.error(err_2);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
             });
         }); };
         this.deleteBook = function (SBN) { return __awaiter(_this, void 0, void 0, function () {
-            var Book, doc, err_4;
+            var Book, doc, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        loglevel_1.default.info("function deleteBook book:" + SBN);
+                        Book = bd_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -172,27 +163,32 @@ var BookService = /** @class */ (function () {
                         doc = _a.sent();
                         return [3 /*break*/, 4];
                     case 3:
-                        err_4 = _a.sent();
+                        err_3 = _a.sent();
+                        loglevel_1.default.error(err_3);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/, "deleted!"];
                 }
             });
         }); };
         this.detailBook = function (SBN) { return __awaiter(_this, void 0, void 0, function () {
-            var Book, docs, err_5;
+            var Book, docs, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        Book = BookDocument_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
-                        return [4 /*yield*/, Book.find({ 'SBN': SBN }).lean().exec()];
+                        loglevel_1.default.info("function detailBook book:" + SBN);
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        Book = bd_1.default.Mongoose.model('book', BookDocument_1.default.BookSchema, 'book');
+                        return [4 /*yield*/, Book.find({ 'SBN': SBN }).lean().exec()];
+                    case 2:
                         docs = _a.sent();
                         return [2 /*return*/, docs];
-                    case 2:
-                        err_5 = _a.sent();
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                    case 3:
+                        err_4 = _a.sent();
+                        loglevel_1.default.error(err_4);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };

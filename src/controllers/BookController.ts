@@ -12,7 +12,6 @@ input BookInput {
       quantityInStock:Float
     }
 
-
     type BookInterface {
         _id:ID
         author: String
@@ -20,10 +19,16 @@ input BookInput {
         description:String
         SBN:String
         quantityInStock:Float
-      }
+    }
+
+
+    type BookInterface2 {
+        name: String
+    }
+
     type Query {
       book(SBN:String): [BookInterface]
-      books: [BookInterface]
+      books(page:Int): [BookInterface2]
     }
     type Mutation {
         createBook(book:BookInput): BookInterface
@@ -34,9 +39,9 @@ input BookInput {
 
 export const resolvers = {
     Query: {
-        books(): any {
+        books(_: any, { page }: any): any {
             const book = new BookService();
-            return book.getAllBooks();
+            return book.getAllBooks(page);
         },
         book(_: any, { SBN }: any):any {
             const book = new BookService();

@@ -34,6 +34,7 @@
     "apollo-server": "3.6.3",
     "express": "^4.17.3",
     "graphql": "^15.3.0",
+    "loglevel": "^1.8.0",
     "mongoose": "^5.11.15",
     "node-fetch": "^3.0.0"
   },
