@@ -1,0 +1,50 @@
+{
+  "name": "xkyptbi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/server.js",
+  "scripts": {
+    "start": "npm run build && node build/server.js",
+    "test": "jest --watchAll",
+    "start:dev": "nodemon",
+    "build": "rimraf ./build && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-async-to-generator": "^7.14.5",
+    "@babel/preset-env": "^7.15.8",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.7.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
+    "add": "^2.0.6",
+    "apollo-server": "3.6.3",
+    "express": "^4.17.3",
+    "graphql": "^15.3.0",
+    "loglevel": "^1.8.0",
+    "mongoose": "^5.11.15",
+    "node-fetch": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enisonoliveira/xkyptbi.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/enisonoliveira/xkyptbi/issues"
+  },
+  "homepage": "https://github.com/enisonoliveira/xkyptbi#readme"
+}
