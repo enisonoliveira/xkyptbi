@@ -22,13 +22,13 @@ input BookInput {
     }
 
 
-    type BookInterface2 {
+    type BookListNameInterface {
         name: String
     }
 
     type Query {
       book(SBN:String): [BookInterface]
-      books(page:Int): [BookInterface2]
+      books(page:Int): [BookListNameInterface]
     }
     type Mutation {
         createBook(book:BookInput): BookInterface
