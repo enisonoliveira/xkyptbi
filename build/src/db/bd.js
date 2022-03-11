@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.connect('mongodb://localhost:27017/web', {
+mongoose_1.default.connect('mongodb://mongo:27017/web', {
     useNewUrlParser: true,
     useFindAndModify: true,
     useUnifiedTopology: true
