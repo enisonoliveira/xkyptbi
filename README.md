@@ -13,10 +13,8 @@
 
 ## Requisitos não funcionais
 
-- Você deve utilizar o framework Express
-- Deve utilzar algum banco de dados (pode ser banco em memória como H2 ou SQLite, porém fique à vontade em utilizar outro banco);
+-  framework Express
+- mongodb
 - Para teste utilize o Jest
-- Sinta-se livre a utilizar algum outras libs
-- Nice to Have: Apresentar o projeto rodando em docker.
-- Realize commits (git) constantes de acordo coma progressão das atividades.
-- Pode escolher em expor os dados em Restful ou GraphQL. (GraphQL é um diferencial)
+- projeto rodando em docker.
+- dados em GraphQL. 
