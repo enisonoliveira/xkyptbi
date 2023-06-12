@@ -1,5 +1,5 @@
 
-# Desafio Técnico Backend
+# API de livros
 
 - Criar um microserviço para expor APIs de CRUD de livros
 
@@ -20,16 +20,3 @@
 - Nice to Have: Apresentar o projeto rodando em docker.
 - Realize commits (git) constantes de acordo coma progressão das atividades.
 - Pode escolher em expor os dados em Restful ou GraphQL. (GraphQL é um diferencial)
-
-## Entrega
-
-- Entrega deve ser feito em um repositório no github.
-
-## Critérios de avaliação
-
-- Entendimento dos requisitos
-- Afinidade com a ferramenta utilizada
-- Testes unitários
-- Estrutura de arquivos
-- Padrão de escrita do código
-- Utilização de boas práticas
